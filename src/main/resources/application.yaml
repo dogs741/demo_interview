@@ -1,0 +1,55 @@
+# ONLY list config that are common for ALL modules and ALL environment here.
+spring:
+  application:
+    name: demo
+  datasource:
+    username: root
+    password: test1234
+    url: jdbc:mysql://localhost:3306/?serverTimezone=${DB_SERVER_TIMEZONE:Asia/Taipei}&connectTimeout=2000&sessionVariables=character_set_connection=utf8mb4
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 3
+      maximum-pool-size: 3
+      connection-test-query: SELECT 1
+  logging: logback-spring.xml
+  flyway:
+    enabled: true
+    baseline-version: 1.0
+    baseline-on-migrate: true
+    validate-on-migrate: true
+    schemas: demo
+    out-of-order: false
+    locations: classpath:db/migration
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+
+redis:
+  host: localhost
+  port: 6379
+  database: 0
+  password:
+
+feign:
+  okhttp:
+    enabled: true
+  hystrix:
+    enabled: false
+  client:
+    config:
+      default:
+        connectTimeout: 30000
+        readTimeout: 30000
+        loggerLevel: full
+
+kafka:
+  default:
+    server: localhost:9092
+
+internal-api:

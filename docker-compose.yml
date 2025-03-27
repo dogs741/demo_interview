@@ -1,0 +1,88 @@
+version: "3.8"
+services:
+  redis:
+    container_name: redis_compose
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - redis
+  db:
+    container_name: mysql_compose
+    image: mysql
+    # 舊版 password plugin 新版 caching_sha2_password 需要設置 allowPublicKeyRetrieval=true
+    # command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - mysql
+  kafka:
+    container_name: kafka_compose
+    hostname: kafka
+    image: confluentinc/cp-kafka
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    networks:
+      - kafka
+  zookeeper:
+    image: confluentinc/cp-zookeeper
+    restart: always
+    hostname: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks:
+      - kafka
+  control-center:
+    image: confluentinc/cp-enterprise-control-center
+    hostname: control-center
+    container_name: control-center
+    depends_on:
+      - zookeeper
+      - kafka
+    ports:
+      - "9021:9021"
+    environment:
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: 'kafka:29091'
+      CONTROL_CENTER_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      CONTROL_CENTER_CONNECT_CLUSTER: 'connect:8083'
+      CONTROL_CENTER_KSQL_URL: "http://ksql-server:8088"
+      CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://localhost:8088"
+      CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      CONTROL_CENTER_REPLICATION_FACTOR: 1
+      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
+      CONFLUENT_METRICS_TOPIC_REPLICATION: 1
+      PORT: 9021
+    networks:
+      - kafka
+  web:
+    container_name: web_compose
+    build: .
+    # 須先 jibDockerBuild build image, 名稱 demo
+    image: demo
+    ports:
+      - "8080:8080"
+    networks:
+      - redis
+      - mysql
+      - kafka
+    depends_on:
+      - redis
+      - db
+      - kafka
+      - zookeeper
+      - control-center
+networks:
+  redis:
+  mysql:
+  kafka:
