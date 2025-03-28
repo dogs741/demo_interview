@@ -5,7 +5,7 @@ spring:
   datasource:
     username: root
     password: test1234
-    url: jdbc:mysql://localhost:3306/?serverTimezone=${DB_SERVER_TIMEZONE:Asia/Taipei}&connectTimeout=2000&sessionVariables=character_set_connection=utf8mb4
+    url: jdbc:mysql://db:3306/?serverTimezone=${DB_SERVER_TIMEZONE:Asia/Taipei}&connectTimeout=2000&sessionVariables=character_set_connection=utf8mb4
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       minimum-idle: 3
@@ -32,7 +32,7 @@ springdoc:
     operationsSorter: method
 
 redis:
-  host: localhost
+  host: redis
   port: 6379
   database: 0
   password:
@@ -51,4 +51,5 @@ feign:
 
 kafka:
   default:
-    server: localhost:9092
+    server: kafka:9092
+
