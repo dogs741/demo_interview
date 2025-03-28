@@ -20,8 +20,6 @@ import org.springframework.util.StringUtils;
 @Configuration
 public class RedisConfig {
 
-    @Value("redis://${redis.host}:${redis.port}")
-    private String address;
     @Value("${redis.database}")
     private int database;
     @Value("${redis.password}")
