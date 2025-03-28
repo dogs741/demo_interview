@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ResponseBean;
 import com.example.demo.dto.request.SensorQueryDTO;
-import com.example.demo.schedule.ObserveSchedule;
 import com.example.demo.service.SensorService;
 import com.example.demo.vo.SensorIndividualResponseVO;
 import com.example.demo.vo.SensorSummaryResponseVO;
@@ -15,7 +14,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @Tag(name = "觀測資訊查詢")
@@ -24,9 +26,6 @@ import org.springframework.web.bind.annotation.*;
 public class SensorQueryController {
     @Autowired
     SensorService sensorService;
-
-    @Autowired
-    ObserveSchedule observeSchedule;
 
     @Operation(summary = "不區分站點的所有資料")
     @ApiResponses(value = {
@@ -48,16 +47,5 @@ public class SensorQueryController {
         if (result == null)
             return ResponseEntity.ok(ResponseBean.builder().code("200").message("Data Not Found").build());
         return ResponseEntity.ok(ResponseBean.builder().code("200").message("OK").data(result).build());
-    }
-
-    @GetMapping("/test")
-    public ResponseEntity<ResponseBean> getHealth() {
-        return ResponseEntity.ok(ResponseBean.builder().code("200").message("OK").build());
-    }
-
-    @GetMapping("/test-scheduler")
-    public ResponseEntity<ResponseBean> testSchedule() {
-        observeSchedule.scheduleTask();
-        return ResponseEntity.ok(ResponseBean.builder().code("200").message("OK").build());
     }
 }
