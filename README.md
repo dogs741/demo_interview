@@ -1,5 +1,5 @@
 # demo_interview
-Swagger-ui : http://localhost:8082/swagger-ui/index.html#/
+Swagger-ui : http://localhost:8080/swagger-ui/index.html#/
 
 requirements : java17 / docker / gradle
 建置過程
