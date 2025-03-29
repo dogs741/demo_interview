@@ -52,7 +52,7 @@ services:
     image: demo
     restart: always
     ports:
-      - "8082:8080"
+      - "8080:8080"
     networks:
       - cache
       - database
