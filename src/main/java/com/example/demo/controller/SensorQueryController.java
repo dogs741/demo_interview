@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SensorQueryController {
     @Autowired
-    SensorService sensorService;
+    private SensorService sensorService;
 
     @Operation(summary = "不區分站點的所有資料")
     @ApiResponses(value = {

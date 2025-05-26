@@ -34,15 +34,15 @@ import java.util.Set;
 public class AlertServiceImpl implements AlertService {
 
     @Autowired
-    AlertSensorMapper alertSensorMapper;
+    private AlertSensorMapper alertSensorMapper;
     @Autowired
-    SensorRecordMapper recordMapper;
+    private SensorRecordMapper recordMapper;
     @Autowired
-    StationMapper stationMapper;
+    private StationMapper stationMapper;
     @Autowired
-    StringRedisTemplate stringRedisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
     @Autowired
-    KafkaService kafkaService;
+    private KafkaService kafkaService;
 
     @Transactional
     @Override

@@ -1,11 +1,10 @@
 package com.example.demo.feign;
 
-import com.example.demo.feign.config.AquarkFeignConfiguration;
 import com.example.demo.feign.response.AquarkResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(name = "aquark", url = "https://app.aquark.com.tw/api", configuration = AquarkFeignConfiguration.class)
+@FeignClient(name = "aquark", url = "https://app.aquark.com.tw/api")
 public interface AquarkSensorFeignClient {
 
     @GetMapping("/raw/Angle2024/240627")

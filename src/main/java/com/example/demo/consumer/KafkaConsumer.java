@@ -13,7 +13,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 public class KafkaConsumer {
 
     @Autowired
-    AlertService alertService;
+    private AlertService alertService;
 
     @KafkaListener(id = "kafka", topics = KafkaConfig.SENSOR_TOPIC, containerFactory = "sensorContainerFactory")
     public void handleSensor(AlertSensorDTO alertSensorDTO) {

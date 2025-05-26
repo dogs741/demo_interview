@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SensorAlertController {
     @Autowired
-    AlertService alertService;
+    private AlertService alertService;
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "設定臨界值", content = {@Content(mediaType = "application/json")})})

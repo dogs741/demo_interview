@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class AlertSchedule {
 
     @Autowired
-    AlertService alertService;
+    private AlertService alertService;
 
     @Scheduled(cron = "* * 3 ? * ?")
     public void scheduleTask() {

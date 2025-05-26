@@ -16,9 +16,9 @@ import java.util.List;
 public class ObserveSchedule {
 
     @Autowired
-    SensorService sensorService;
+    private SensorService sensorService;
     @Autowired
-    AquarkSensorFeignClient client;
+    private AquarkSensorFeignClient client;
 
     @Scheduled(cron = "* * 0 ? * ?")
     public void scheduleTask() {

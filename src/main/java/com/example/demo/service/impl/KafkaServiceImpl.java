@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class KafkaServiceImpl implements KafkaService {
 
     @Autowired
-    KafkaTemplate<String, Object> kafkaTemplate;
+    private KafkaTemplate<String, Object> kafkaTemplate;
 
     @Override
     public void pushToTopic(String topic, Object message) {

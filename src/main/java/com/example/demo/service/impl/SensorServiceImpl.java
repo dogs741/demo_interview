@@ -31,9 +31,9 @@ import java.util.stream.Collectors;
 @Service
 public class SensorServiceImpl implements SensorService {
     @Autowired
-    SensorRecordMapper recordMapper;
+    private SensorRecordMapper recordMapper;
     @Autowired
-    StringRedisTemplate stringRedisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     private final Function<ObserverResponse, SensorRecordDTO> transferResponseToDTO = response -> {
         SensorRecordDTO dto = SensorRecordDTO.builder()
